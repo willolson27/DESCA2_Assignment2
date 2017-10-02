@@ -11,14 +11,20 @@ public class DeckTest {
 		
 		System.out.println("\n" + shuffled);
 		System.out.println(deck.equals(testDeck));
-		*/
+		
 		
 		Deck deck2 = new Deck(false);
 		System.out.println(deck2);
 		deck2.selectionSort();
 		System.out.println(deck2);
 		
+		*/
 		
+		Deck deck3 = new Deck();
+		Deck[] hands = deck3.deal(4,13);
+		System.out.println(hands[0]);
+	//	System.out.println(hands[1]);
+	
 	}
 	
 }

@@ -4,6 +4,7 @@ public class Deck {
 
 	private  Card[] deck = new Card[52];
 	private Card topCard = deck[deck.length - 1];
+	private int deckSize = 52;
 	
 	public Deck () {
 		
@@ -34,6 +35,12 @@ public class Deck {
 		
 	}
 	
+	public Deck (Card[] hands) {
+		
+		deck = hands;
+		
+	}
+	
 	public void shuffle(Card[] deck) {
 		
 		Random rand = new Random();
@@ -51,7 +58,7 @@ public class Deck {
 	public  String toString() {
 		
 		String toOutput = "";
-		for (int i = 0 ; i < 52; i++) {
+		for (int i = 0 ; i < deck.length; i++) {
 			toOutput+= (deck[i].toString() +"\t\t");
 			if ((i + 1) % 4 == 0)
 				toOutput += "\n";
@@ -83,6 +90,27 @@ public class Deck {
 		return true;
 	}
 	
+	public Deck[] deal (int numHands, int numCards) {
+		
+		
+		Deck[] hands = new Deck[numHands];
+		this.shuffle(deck);
+		
+		int a = 0;
+		for (int i = 0; i < numHands; i++) {
+			Card[] tempDeck = new Card[numCards];
+			for (int j = 0; j < numCards; j++) {
+				tempDeck[j] = this.deck[a];
+				a++;
+			}
+			hands[i] = new Deck(tempDeck);
+	
+		}
+		
+		return hands;
+		
+	}
+	
 	public void selectionSort() {
 		
 		for (int i = deck.length; i > 1; i--) {
@@ -99,4 +127,5 @@ public class Deck {
 		}
 	}
 	
+
 }
