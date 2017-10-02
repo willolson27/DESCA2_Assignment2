@@ -3,16 +3,25 @@ public class Card {
 
 	private int rank;
 	private String suit;
+	private int cardVal;
 	
 	public Card() {
 		
+		rank = 1;
+		suit = "clubs";
+		cardVal = setCardVal(1, "clubs");
 	}
 	
 	public Card (int s, String r) {
 		
+		
+		
 	}
 	
 	public Card (String s, int r) {
+		
+		rank = r;
+		suit = s;
 		
 	}
 	
@@ -22,25 +31,51 @@ public class Card {
 		
 	}
 	
-	public Card (int s, int r) {
+	public Card (int r, int s) {
 		
 		rank = r;
 		
 		switch (s) {
         	case 0: 
         		suit = "clubs";
+        		break;
         	case 1:	
         		suit = "diamonds";
+        		break;
         	case 2:	
         		suit = "hearts";
+        		break;
         	case 3:	
         		suit = "spades";
+        		break;
 
    
 		} 
 		
+		cardVal = setCardVal(rank, suit);
 	}
 	
+	int setCardVal(int r, String s) {
+		
+		switch(s) {
+		case "clubs":
+			return ((r-1)*4 + 1);
+		case "diamonds":
+			return ((r-1)*4 + 2);
+		case "hearts":
+			return ((r-1)*4 + 3);
+		case "spades":
+			return ((r-1)*4 + 4);
+			
+		default : return -1;
+		}
+		
+
+	}
+	
+	public int getCardVal() {
+		return cardVal;
+	}
 	
 	public String getSuit() {
 		
@@ -83,7 +118,7 @@ public class Card {
 		
 	}
 	
-	public String toString() {
+	public  String toString() {
 		
 		return (getRankStr() + " of " + getSuit());
 		
@@ -97,6 +132,7 @@ public class Card {
 			return false;
 		
 	}
+	
 	
 	
 	
