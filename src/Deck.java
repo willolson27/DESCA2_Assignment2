@@ -161,7 +161,7 @@ public class Deck {
 		else {
 			int middle = (from + to) / 2;
 			recurse(deck, from, middle);
-			recurse(deck, middle, to);
+			recurse(deck, middle + 1, to);
 			merge(deck, from, middle, to);
 		}
 		
