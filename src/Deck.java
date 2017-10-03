@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Deck {
@@ -5,6 +6,8 @@ public class Deck {
 	private  Card[] deck = new Card[52];
 	private Card topCard = deck[deck.length - 1];
 	private int deckSize = 52;
+	
+	private Card[] temp = new Card[deckSize];
 	
 	public Deck () {
 		
@@ -60,9 +63,16 @@ public class Deck {
 		String toOutput = "";
 		for (int i = 0 ; i < deck.length; i++) {
 			if (deck.length == deckSize){
+				if (deck[i].getSuit() == "diamonds" && (deck[i].getRank() != 6 && deck[i].getRank() != 10 &&  deck[i].getRank() !=1 &&  deck[i].getRank() !=2)) {
+					toOutput+= (deck[i].toString() +"\t");
+					if ((i + 1) % 4 == 0)
+						toOutput += "\n";
+				}
+				else {
 				toOutput+= (deck[i].toString() +"\t\t");
 					if ((i + 1) % 4 == 0)
 						toOutput += "\n";
+				}
 			}
 			else
 				toOutput += (deck[i].toString() +"\n");
@@ -131,7 +141,64 @@ public class Deck {
 		}
 	}
 	
-	public void mergeSort
+	public void mergeSort () {
+		
+		int n = deck.length;
+		temp = new Card[n];
+		recurse(deck , 0, 51);
+		
+	}
+	
+	private void recurse (Card[] deck, int from, int to) {
+	
+		if (to - from < 2) {
+			if (to > from && deck[to].getCardVal() > deck[from].getCardVal()) {
+				Card cardTemp = deck[to];
+				deck[to] = deck[from];
+				deck[from] = cardTemp;
+			}		
+		}
+		else {
+			int middle = (from + to) / 2;
+			recurse(deck, from, middle);
+			recurse(deck, middle, to);
+			merge(deck, from, middle, to);
+		}
+		
+		
+	}
+	
+	private void merge (Card[] deck, int from, int middle, int to) {
+		int i = from;
+		int j = middle;
+		int k = from;
+		
+		while (i <= middle && j <=to) {
+			if (deck[i].getCardVal() < deck[j].getCardVal()) {
+				temp[k] = deck[i];
+				i++;
+			}
+			else {
+				temp[k] = deck[j];
+				j++;
+			}
+			k++;		
+		}
+		while (i <= middle) {
+			temp[k] = deck[i];
+			i++;
+			k++;
+		}
+		while (j <= to) {
+			temp[k] = deck[j];
+			j++;
+			k++;
+		}
+		
+		for (k = from; k <= to; k++)
+			deck[k] = temp[k];
+		
+	}
 	
 		
 

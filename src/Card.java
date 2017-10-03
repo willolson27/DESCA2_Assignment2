@@ -5,11 +5,20 @@ public class Card {
 	private String suit;
 	private int cardVal;
 	
+	private final String ACE = "Ace";
+	private final String JACK = "Jack";
+	private final String QUEEN = "Queen";
+	private final String KING = "King";
+	private final String CLUBS = "clubs";
+	private final String DIAMONDS = "diamonds";
+	private final String HEARTS = "hearts";
+	private final String SPADES = "spades";
+	
 	public Card() {
 		
 		rank = 1;
-		suit = "clubs";
-		cardVal = setCardVal(1, "clubs");
+		suit = CLUBS;
+		cardVal = setCardVal(1, CLUBS);
 	}
 	
 	public Card (int s, String r) {
@@ -37,16 +46,16 @@ public class Card {
 		
 		switch (s) {
         	case 0: 
-        		suit = "clubs";
+        		suit = CLUBS;
         		break;
         	case 1:	
-        		suit = "diamonds";
+        		suit = DIAMONDS;
         		break;
         	case 2:	
-        		suit = "hearts";
+        		suit = HEARTS;
         		break;
         	case 3:	
-        		suit = "spades";
+        		suit = SPADES;
         		break;
 
    
@@ -58,13 +67,13 @@ public class Card {
 	int setCardVal(int r, String s) {
 		
 		switch(s) {
-		case "clubs":
+		case CLUBS:
 			return ((r-1)*4 + 1);
-		case "diamonds":
+		case DIAMONDS:
 			return ((r-1)*4 + 2);
-		case "hearts":
+		case HEARTS:
 			return ((r-1)*4 + 3);
-		case "spades":
+		case SPADES:
 			return ((r-1)*4 + 4);
 			
 		default : return -1;
@@ -92,25 +101,35 @@ public class Card {
 	public String getRankStr() {
 		
 		switch (rank) {
-        case 1:		return "Ace";
-        case 11:	return "Jack";
-        case 12:	return "Queen";
-        case 13:	return "King";
+        case 1:		return ACE;
+        case 2:		return "Two";
+        case 3:		return "Three";
+        case 4:		return "Four";
+        case 5:		return "Five";
+        case 6:		return "Six";
+        case 7:		return "Seven";
+        case 8:		return "Eight";
+        case 9:		return "Nine";
+        case 10:	return "Ten";
+        case 11:	return JACK;
+        case 12:	return QUEEN;
+        case 13:	return KING;
 
-        default: return rank + "";
+        default: return null;
 		} 
 	}
+	
 	
 	public int getSuitInt() {
 		
 		switch(suit) {
-		case "clubs":
+		case CLUBS:
 			return 0;
-		case "diamonds":
+		case DIAMONDS:
 			return 1;
-		case "hearts":
+		case HEARTS:
 			return 2;
-		case "spades":
+		case SPADES:
 			return 3;
 			
 		default : return -1;
