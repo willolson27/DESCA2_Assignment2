@@ -22,9 +22,10 @@ public class DeckTest {
 		
 		Deck deck3 = new Deck();
 		Deck[] hands = deck3.deal(4,13);
-		System.out.println(hands[0]);
-	//	System.out.println(hands[1]);
-	
+		System.out.println(hands[0] + "\n");
+		System.out.println(hands[1] + "\n");
+		System.out.println(hands[2] + "\n");
+		System.out.println(hands[3] + "\n");
 	}
 	
 }

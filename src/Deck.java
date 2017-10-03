@@ -59,9 +59,13 @@ public class Deck {
 		
 		String toOutput = "";
 		for (int i = 0 ; i < deck.length; i++) {
-			toOutput+= (deck[i].toString() +"\t\t");
-			if ((i + 1) % 4 == 0)
-				toOutput += "\n";
+			if (deck.length == deckSize){
+				toOutput+= (deck[i].toString() +"\t\t");
+					if ((i + 1) % 4 == 0)
+						toOutput += "\n";
+			}
+			else
+				toOutput += (deck[i].toString() +"\n");
 		}
 		return toOutput;
 	}
@@ -127,5 +131,8 @@ public class Deck {
 		}
 	}
 	
+	public void mergeSort
+	
+		
 
 }
