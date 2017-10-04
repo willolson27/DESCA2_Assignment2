@@ -141,12 +141,12 @@ public class Deck {
 		}
 	}
 	
-	public void mergeSort () {
+	public void mergeSort (Card[] deck) {
 		
 		int n = deck.length;
 		temp = new Card[n];
-		recurse(deck , 0, 51);
-		
+		recurse(deck , 0, n - 1);
+		this.deck = deck;
 	}
 	
 	private void recurse (Card[] deck, int from, int to) {
@@ -184,12 +184,12 @@ public class Deck {
 			}
 			k++;		
 		}
-		while (i <= middle) {
+		while (i <= middle && k != 52) {
 			temp[k] = deck[i];
 			i++;
 			k++;
 		}
-		while (j <= to) {
+		while (j <= to && k != 52) {
 			temp[k] = deck[j];
 			j++;
 			k++;
@@ -197,6 +197,8 @@ public class Deck {
 		
 		for (k = from; k <= to; k++)
 			deck[k] = temp[k];
+		
+		this.deck = deck;
 		
 	}
 	

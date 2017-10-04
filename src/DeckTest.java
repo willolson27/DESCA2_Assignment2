@@ -27,10 +27,10 @@ public class DeckTest {
 		System.out.println(hands[2] + "\n");
 		System.out.println(hands[3] + "\n"); */
 		
-		Deck deck4 = new Deck(false);
+		Deck deck4 = new Deck(true);
 		System.out.println(deck4);
-		deck4.mergeSort();
-		System.out.println(deck4);
+	//	deck4.mergeSort(deck4.getDeck());
+	//	System.out.println(deck4);
 		
 	}
 	

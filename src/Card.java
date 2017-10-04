@@ -1,5 +1,5 @@
 
-public class Card {
+public class Card implements Comparable {
 
 	private int rank;
 	private String suit;
@@ -23,7 +23,8 @@ public class Card {
 	
 	public Card (int s, String r) {
 		
-		
+		suit = suitConv(s);
+		rank = rankConv(r);
 		
 	}
 	
@@ -36,6 +37,8 @@ public class Card {
 	
 	public Card (String s, String r) {
 		
+		suit = s;
+		rank = rankConv(r);
 		
 		
 	}
@@ -44,24 +47,47 @@ public class Card {
 		
 		rank = r;
 		
-		switch (s) {
-        	case 0: 
-        		suit = CLUBS;
-        		break;
-        	case 1:	
-        		suit = DIAMONDS;
-        		break;
-        	case 2:	
-        		suit = HEARTS;
-        		break;
-        	case 3:	
-        		suit = SPADES;
-        		break;
-
-   
-		} 
+		suit = suitConv(s);
 		
 		cardVal = setCardVal(rank, suit);
+	}
+	
+	String suitConv (int s) {
+		
+		switch (s) {
+    	case 0: 
+    		return CLUBS;
+    	case 1:	
+    		return DIAMONDS;
+    	case 2:	
+    		return HEARTS;
+    	case 3:	
+    		return SPADES;
+    	default: return null;
+
+		}
+	}
+	
+	int rankConv (String r) {
+		
+		switch (r) {
+		case ACE: 		return 1;
+		case "two": 	return 2;
+		case "three": 	return 3;
+		case "four":	return 4;
+		case "five":	return 5;
+		case "six":		return 6;
+		case "seven":	return 7;
+		case "eight":	return 8;
+		case "nine":	return 9;
+		case "ten":		return 10;
+		case JACK:		return 11;
+		case QUEEN:		return 12;
+		case KING:		return 13;
+			
+		default: return -1;
+		}
+		
 	}
 	
 	int setCardVal(int r, String s) {
@@ -150,6 +176,12 @@ public class Card {
 		else
 			return false;
 		
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
