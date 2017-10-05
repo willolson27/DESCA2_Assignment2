@@ -1,13 +1,23 @@
-import java.util.Arrays;
+
 import java.util.Random;
 
 public class Deck {
 
-	private  Card[] deck = new Card[52];
-	private Card topCard = deck[deck.length - 1];
 	private int deckSize = 52;
+	private  Card[] deck = new Card[deckSize];
+	private Card topCard = deck[deck.length - 1];
 	
 	private Card[] temp = new Card[deckSize];
+	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Deck (default Constructor)
+	 * 		-used to create a default deck
+	 * @param args: none
+	 * @return: new default Deck
+	 */
 	
 	public Deck () {
 		
@@ -21,6 +31,15 @@ public class Deck {
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Deck (extra Constructor)
+	 * 		-used to create sorted or shuffled deck
+	 * @param args: boolean isSorted - tells if user wants deck to be sorted ro not
+	 * @return: new sorted/shuffled Deck
+	 */
 	public Deck (boolean isSorted) {
 		
 		int a = 0;
@@ -38,12 +57,30 @@ public class Deck {
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Deck (extra Constructor)
+	 * 		-used to create hand of cards
+	 * @param args: Card[] hands -array of cards
+	 * @return: new small Deck, part of bigger deck
+	 */
 	public Deck (Card[] hands) {
 		
 		deck = hands;
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: shuffle
+	 * 		-used shuffle a deck
+	 * @param args: Card[] Deck - a Deck of Cards
+	 * @return: none
+	 */
 	public void shuffle(Card[] deck) {
 		
 		Random rand = new Random();
@@ -58,6 +95,15 @@ public class Deck {
 		this.deck = deck;
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: toString
+	 * 		-used to print out a deck
+	 * @param args: none
+	 * @return: list of all cards in the deck
+	 */
 	public  String toString() {
 		
 		String toOutput = "";
@@ -80,6 +126,15 @@ public class Deck {
 		return toOutput;
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: pick
+	 * 		-picks a random card from the deck
+	 * @param args: none
+	 * @return: random card
+	 */
 	public Card pick() {
 		
 		Random rand = new Random();
@@ -89,11 +144,29 @@ public class Deck {
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: getDeck
+	 * 		-returns the deck field
+	 * @param args: none
+	 * @return: a deck of cards
+	 */
 	public Card[] getDeck() {
 		
 		return deck;
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: equals
+	 * 		-checks if this deck is equal to another
+	 * @param args: Deck otherD- other Deck
+	 * @return: boolean - true if equal, false if not
+	 */
 	public boolean equals (Deck otherD) {
 		
 		Card[] deck = otherD.getDeck();
@@ -104,33 +177,55 @@ public class Deck {
 		return true;
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: deal
+	 * 		-used to return an array of hands
+	 * @param args: int numHands - number of hands, int numCards - cards per hand
+	 * @return: array of hands (small subdecks)
+	 */
 	public Deck[] deal (int numHands, int numCards) {
 		
 		
 		Deck[] hands = new Deck[numHands];
 		this.shuffle(deck);
-		
-		int a = 0;
-		for (int i = 0; i < numHands; i++) {
-			Card[] tempDeck = new Card[numCards];
-			for (int j = 0; j < numCards; j++) {
-				tempDeck[j] = this.deck[a];
-				a++;
-			}
-			hands[i] = new Deck(tempDeck);
+		if (deckSize - (numHands * numCards) >= 0) {
+			int a = 0;
+			for (int i = 0; i < numHands; i++) {
+				Card[] tempDeck = new Card[numCards];
+				for (int j = 0; j < numCards; j++) {
+					tempDeck[j] = this.deck[a];
+					a++;
+				}
+				hands[i] = new Deck(tempDeck);
 	
+			}
+			return hands;
 		}
-		
-		return hands;
+		else
+			return null;
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: selectionSort
+	 * 		-used to sort this deck to the default
+	 * @param args: none
+	 * @return: none
+	 */
 	public void selectionSort() {
+		
+		CardComparator comp = new CardComparator();
 		
 		for (int i = deck.length; i > 1; i--) {
 			int iMax = 0;
 			for (int j = 1; j < i; j++) {
-				if (deck[j].getCardVal() > deck[iMax].getCardVal())
+				if (comp.compare(deck[j], deck[iMax]) == 1)
 					iMax = j;
 			}
 			
@@ -141,6 +236,15 @@ public class Deck {
 		}
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: mergeSort
+	 * 		-used to sort a deck to the default
+	 * @param args: Card[] deck - deck to be sorted
+	 * @return: none
+	 */
 	public void mergeSort (Card[] deck) {
 		
 		int n = deck.length;
@@ -149,10 +253,21 @@ public class Deck {
 		this.deck = deck;
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: recurse
+	 * 		-recursive helper method for mergeSort
+	 * @param args: Card[] deck, int from - starting point, int to - ending point
+	 * @return: none
+	 */
 	private void recurse (Card[] deck, int from, int to) {
 	
+		CardComparator comp = new CardComparator();
+			
 		if (to - from < 2) {
-			if (to > from && deck[to].getCardVal() > deck[from].getCardVal()) {
+			if (to > from && (comp.compare(deck[to], deck[from]) == -1)) {
 				Card cardTemp = deck[to];
 				deck[to] = deck[from];
 				deck[from] = cardTemp;
@@ -168,13 +283,24 @@ public class Deck {
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: merge
+	 * 		-merging helper method for mergeSort
+	 * @param args: Card[]deck - deck to be sorted, int from - starting point, int middle - middle point, int to - end point
+	 * @return: none
+	 */
 	private void merge (Card[] deck, int from, int middle, int to) {
 		int i = from;
-		int j = middle;
+		int j = middle + 1;
 		int k = from;
 		
+		CardComparator comp = new CardComparator();
+		
 		while (i <= middle && j <=to) {
-			if (deck[i].getCardVal() < deck[j].getCardVal()) {
+			if (comp.compare(deck[i], deck[j]) == -1) {
 				temp[k] = deck[i];
 				i++;
 			}
@@ -184,12 +310,12 @@ public class Deck {
 			}
 			k++;		
 		}
-		while (i <= middle && k != 52) {
+		while (i <= middle && k != deckSize) {
 			temp[k] = deck[i];
 			i++;
 			k++;
 		}
-		while (j <= to && k != 52) {
+		while (j <= to && k != deckSize) {
 			temp[k] = deck[j];
 			j++;
 			k++;

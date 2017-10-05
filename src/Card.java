@@ -14,6 +14,15 @@ public class Card implements Comparable {
 	private final String HEARTS = "hearts";
 	private final String SPADES = "spades";
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Card (extra constructor)
+	 * 		-creates default instance of card (ace of clubs)
+	 * @param args: none
+	 * @return: Card object
+	 */
 	public Card() {
 		
 		rank = 1;
@@ -21,28 +30,65 @@ public class Card implements Comparable {
 		cardVal = setCardVal(1, CLUBS);
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Card (extra constructor)
+	 * 		-creates instance of card 
+	 * @param args: string r (rank as string) , int s (suit as int)
+	 * @return: Card object
+	 */
 	public Card (int s, String r) {
 		
 		suit = suitConv(s);
 		rank = rankConv(r);
+		cardVal = setCardVal(rank, suit);
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Card (extra constructor)
+	 * 		-creates instance of card 
+	 * @param args: int r (rank as int) , string s (suit as string)
+	 * @return: Card object
+	 */
 	public Card (String s, int r) {
 		
 		rank = r;
 		suit = s;
-		
+		cardVal = setCardVal(rank, suit);
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Card (extra constructor)
+	 * 		-creates instance of card 
+	 * @param args: string r (rank as string) , string s (suit as string)
+	 * @return: Card object
+	 */
 	public Card (String s, String r) {
 		
 		suit = s;
 		rank = rankConv(r);
-		
+		cardVal = setCardVal(rank, suit);
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: Card (extra constructor)
+	 * 		-creates instance of card 
+	 * @param args: int r (rank as int) , int s (suit as int)
+	 * @return: Card object
+	 */
 	public Card (int r, int s) {
 		
 		rank = r;
@@ -52,6 +98,15 @@ public class Card implements Comparable {
 		cardVal = setCardVal(rank, suit);
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: suitConv
+	 * 		-converts suit from int to string
+	 * @param args: int s (suit)
+	 * @return: string  of suit
+	 */
 	String suitConv (int s) {
 		
 		switch (s) {
@@ -68,6 +123,15 @@ public class Card implements Comparable {
 		}
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: rankConv
+	 * 		-converts rank from string to int
+	 * @param args: String r (rank)
+	 * @return: integer of rank
+	 */
 	int rankConv (String r) {
 		
 		switch (r) {
@@ -90,6 +154,15 @@ public class Card implements Comparable {
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: setCardVal
+	 * 		-sets a value to the card based on its rank and suit
+	 * @param args: none
+	 * @return: value of card
+	 */
 	int setCardVal(int r, String s) {
 		
 		switch(s) {
@@ -108,22 +181,57 @@ public class Card implements Comparable {
 
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: getCardVal
+	 * 		-returns value of card
+	 * @param args: none
+	 * @return: value of card, based on setCardVal
+	 */
 	public int getCardVal() {
 		return cardVal;
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: getSuit
+	 * 		-returns suit
+	 * @param args: none
+	 * @return: card's suit
+	 */
 	public String getSuit() {
 		
 		return suit;
 		
 	}
-	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: getRank
+	 * 		-returns rank
+	 * @param args: none
+	 * @return: rank of card
+	 */
 	public int getRank() {
 		
 		return rank;
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: getRankString
+	 * 		-returns rank as string
+	 * @param args: none
+	 * @return: string corresponding to the object's rank
+	 */
 	public String getRankStr() {
 		
 		switch (rank) {
@@ -145,7 +253,15 @@ public class Card implements Comparable {
 		} 
 	}
 	
-	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: getSuitInt
+	 * 		-returns suit as int
+	 * @param args: none
+	 * @return: integer corresponding to the object's suit
+	 */
 	public int getSuitInt() {
 		
 		switch(suit) {
@@ -163,12 +279,31 @@ public class Card implements Comparable {
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: toString
+	 * 		-returns the card's rank and suit values
+	 * @param args: none
+	 * @return: String containing the Card's rank and suit
+	 */
+	
 	public  String toString() {
 		
 		return (getRankStr() + " of " + getSuit());
 		
 	}
 	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: equals
+	 * 		-checks if this card is equal to another
+	 * @param args: Card otherCard
+	 * @return: int - 1 if this is greater to o1, -1 of this is less than o1, 0 if equal
+	 */
 	public boolean equals(Card otherCard) {
 		
 		if (this.getRank() == otherCard.getRank() && this.getSuit() == otherCard.getSuit())
@@ -178,10 +313,42 @@ public class Card implements Comparable {
 		
 	}
 
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: compareTo (no @override)
+	 * 		-compares this card to another
+	 * @param args: Card c1
+	 * @return: int - 1 if this is greater to o1, -1 of this is less than o1, 0 if equal
+	 */
+	public int compareTo(Card c1) {
+		if (this.getRank() > c1.getRank())
+			return 1;
+		else if (this.getRank() > c1.getRank())
+			return -1;
+		else
+			return 0;
+	}
+	
+	/*
+	 * 
+	 * @user: willolson27
+	 * @date: October 4, 2017
+	 * @ method: compareTo (@override)
+	 * 		-compares this card to another
+	 * @param args: Object o1
+	 * @return: int - 1 if this is greater to o1, -1 of this is less than o1, 0 if equal
+	 */
 	@Override
-	public int compareTo(Object arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int compareTo(Object o1) {
+		int a = ((Card)o1).getRank();
+		if (this.getRank() > a)
+			return 1;
+		else if (this.getRank() < a)
+			return -1;
+		else
+			return 0;
 	}
 	
 	
