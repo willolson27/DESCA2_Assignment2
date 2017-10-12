@@ -30,10 +30,7 @@ public class DeckTest {
 		for (int i = 0; i < hands.length; i++)
 			System.out.println("Hand " + (i + 1) + "\n" + hands[i]);
 
-	/*	Deck[] hands2 = deck.deal(5,13);
-		for (int i = 0; i < hands2.length; i++)
-			System.out.println("Hand " + i + "\n" + hands2[i] + "\n"); */
-		
+	
 		deck.shuffle();
 		System.out.println("Shuffled \n" + deck + "\n");
 		deck.selectionSort();

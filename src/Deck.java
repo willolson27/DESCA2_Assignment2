@@ -15,7 +15,7 @@ public class Deck {
 	
 	private Card[] temp = new Card[deckSize];
 	
-	/*
+	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -37,7 +37,7 @@ public class Deck {
 		
 	}
 	
-	/*
+	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -63,7 +63,7 @@ public class Deck {
 		
 	}
 	
-	/*
+	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -78,7 +78,8 @@ public class Deck {
 		
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -101,11 +102,12 @@ public class Deck {
 	//	this.deck = deck;
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: toString
+	 * @method: toString
 	 * 		-used to print out a deck
 	 * @param args: none
 	 * @return: list of all cards in the deck
@@ -132,11 +134,12 @@ public class Deck {
 		return toOutput;
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: pick
+	 * @method: pick
 	 * 		-picks a random card from the deck
 	 * @param args: none
 	 * @return: random card
@@ -150,11 +153,12 @@ public class Deck {
 		
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: getDeck
+	 * @method: getDeck
 	 * 		-returns the deck field
 	 * @param args: none
 	 * @return: a deck of cards
@@ -164,11 +168,12 @@ public class Deck {
 		return deck;
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: equals
+	 * @method: equals
 	 * 		-checks if this deck is equal to another
 	 * @param args: Deck otherD- other Deck
 	 * @return: boolean - true if equal, false if not
@@ -185,11 +190,11 @@ public class Deck {
 		return true;
 	}
 	
-	/*
+	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: deal
+	 * @method: deal
 	 * 		-used to return an array of hands
 	 * @param args: int numHands - number of hands, int numCards - cards per hand
 	 * @return: array of hands (small subdecks)
@@ -217,7 +222,8 @@ public class Deck {
 		
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -244,7 +250,8 @@ public class Deck {
 		}
 	}
 	
-	/*
+	/**
+	 * 
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -261,7 +268,7 @@ public class Deck {
 	
 	}
 	
-	/*
+	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
@@ -291,11 +298,11 @@ public class Deck {
 		
 	}
 	
-	/*
+	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: merge
+	 * @method: merge
 	 * 		-merging helper method for mergeSort
 	 * @param args: Card[]deck - deck to be sorted, int from - starting point, int middle - middle point, int to - end point
 	 * @return: none
@@ -335,7 +342,15 @@ public class Deck {
 		this.deck = deck;
 		
 	}
-	
+	/**
+	 * 
+	 * @user:willolson27
+	 * @date: October 11, 2017
+	 * @method
+	 * 	-creates a PrintWriter to be written to the output file
+	 * @param String f
+	 * @return PrintWriter (used to print to output file)
+	 */
 	public static PrintWriter makeWriter(String f) {
 		
 		File file = new File(f);
@@ -353,13 +368,7 @@ public class Deck {
 	
 	public static void writeJava(Scanner input, PrintWriter output) {
 		
-		while (input.hasNextLine()) {
-			String word = input.nextLine();
-			
-			if (word.length() >= 1 && word.length() <=16) {
-			output.println("\t\"" + word + "\",");
-			}
-		}
+		 
 	}
 	
 		
