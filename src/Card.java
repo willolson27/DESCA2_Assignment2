@@ -3,16 +3,16 @@ public class Card implements Comparable {
 
 	private int rank;
 	private String suit;
-	private int cardVal;
+
 	
 	private final String ACE = "Ace";
 	private final String JACK = "Jack";
 	private final String QUEEN = "Queen";
 	private final String KING = "King";
-	private final String CLUBS = "clubs";
-	private final String DIAMONDS = "diamonds";
-	private final String HEARTS = "hearts";
-	private final String SPADES = "spades";
+	private final String CLUBS = "Clubs";
+	private final String DIAMONDS = "Diamonds";
+	private final String HEARTS = "Hearts";
+	private final String SPADES = "Spades";
 	
 	/*
 	 * 
@@ -27,7 +27,7 @@ public class Card implements Comparable {
 		
 		rank = 1;
 		suit = CLUBS;
-		cardVal = setCardVal(1, CLUBS);
+
 	}
 	
 	/*
@@ -43,7 +43,7 @@ public class Card implements Comparable {
 		
 		suit = suitConv(s);
 		rank = rankConv(r);
-		cardVal = setCardVal(rank, suit);
+
 		
 	}
 	
@@ -60,7 +60,7 @@ public class Card implements Comparable {
 		
 		rank = r;
 		suit = s;
-		cardVal = setCardVal(rank, suit);
+
 	}
 	
 	/*
@@ -76,7 +76,7 @@ public class Card implements Comparable {
 		
 		suit = s;
 		rank = rankConv(r);
-		cardVal = setCardVal(rank, suit);
+
 		
 	}
 	
@@ -89,13 +89,13 @@ public class Card implements Comparable {
 	 * @param args: int r (rank as int) , int s (suit as int)
 	 * @return: Card object
 	 */
-	public Card (int r, int s) {
+	public Card (int s, int r) {
 		
 		rank = r;
 		
 		suit = suitConv(s);
 		
-		cardVal = setCardVal(rank, suit);
+
 	}
 	
 	/*
@@ -152,46 +152,6 @@ public class Card implements Comparable {
 		default: return -1;
 		}
 		
-	}
-	
-	/*
-	 * 
-	 * @user: willolson27
-	 * @date: October 4, 2017
-	 * @ method: setCardVal
-	 * 		-sets a value to the card based on its rank and suit
-	 * @param args: none
-	 * @return: value of card
-	 */
-	int setCardVal(int r, String s) {
-		
-		switch(s) {
-		case CLUBS:
-			return ((r-1)*4 + 1);
-		case DIAMONDS:
-			return ((r-1)*4 + 2);
-		case HEARTS:
-			return ((r-1)*4 + 3);
-		case SPADES:
-			return ((r-1)*4 + 4);
-			
-		default : return -1;
-		}
-		
-
-	}
-	
-	/*
-	 * 
-	 * @user: willolson27
-	 * @date: October 4, 2017
-	 * @ method: getCardVal
-	 * 		-returns value of card
-	 * @param args: none
-	 * @return: value of card, based on setCardVal
-	 */
-	public int getCardVal() {
-		return cardVal;
 	}
 	
 	/*
@@ -306,7 +266,7 @@ public class Card implements Comparable {
 	 */
 	public boolean equals(Card otherCard) {
 		
-		if (this.getRank() == otherCard.getRank() && this.getSuit() == otherCard.getSuit())
+		if (this.getRank() == otherCard.getRank() && this.getSuit().equals(otherCard.getSuit()))
 			return true;
 		else
 			return false;

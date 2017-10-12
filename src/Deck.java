@@ -1,11 +1,17 @@
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Deck {
 
-	private int deckSize = 52;
+	private final int deckSize = 52;
+	private final int numRanks = 13;
+	private final int numSuits = 4;
 	private  Card[] deck = new Card[deckSize];
-	private Card topCard = deck[deck.length - 1];
+	private int topCard = deck.length - 1;
 	
 	private Card[] temp = new Card[deckSize];
 	
@@ -22,9 +28,9 @@ public class Deck {
 	public Deck () {
 		
 		int a = 0;
-		for (int i = 1; i < 14; i++) {
-			for (int j = 0; j < 4; j++) {
-				deck[a] = new Card(i, j);
+		for (int i = 1; i < (numRanks + 1); i++) {
+			for (int j = 0; j < numSuits; j++) {
+				deck[a] = new Card(j, i);
 				a++;
 			}
 		}
@@ -43,15 +49,15 @@ public class Deck {
 	public Deck (boolean isSorted) {
 		
 		int a = 0;
-		for (int i = 1; i < 14; i++) {
-			for (int j = 0; j < 4; j++) {
-				deck[a] = new Card(i, j);
+		for (int i = 1; i < (numSuits + 1); i++) {
+			for (int j = 0; j < numRanks; j++) {
+				deck[a] = new Card(j, i);
 				a++;
 			}
 		}
 		
 		if (isSorted == false) {
-			this.shuffle(deck);
+			this.shuffle();
 		}
 
 		
@@ -81,7 +87,7 @@ public class Deck {
 	 * @param args: Card[] Deck - a Deck of Cards
 	 * @return: none
 	 */
-	public void shuffle(Card[] deck) {
+	public void shuffle() {
 		
 		Random rand = new Random();
 		
@@ -92,7 +98,7 @@ public class Deck {
 		    deck[randPos] = temp;
 		}
 		
-		this.deck = deck;
+	//	this.deck = deck;
 	}
 	
 	/*
@@ -170,8 +176,10 @@ public class Deck {
 	public boolean equals (Deck otherD) {
 		
 		Card[] deck = otherD.getDeck();
+		if (this.deck.length != deck.length)
+			return false;
 		for (int i = 0; i < deck.length; i++) {
-			if (this.deck[i].getRank() != deck[i].getRank() || this.deck[i].getSuit() != deck[i].getSuit())
+			if (this.deck[i].equals(deck[i]) == false)
 				return false;
 		}
 		return true;
@@ -190,7 +198,7 @@ public class Deck {
 		
 		
 		Deck[] hands = new Deck[numHands];
-		this.shuffle(deck);
+		this.shuffle();
 		if (deckSize - (numHands * numCards) >= 0) {
 			int a = 0;
 			for (int i = 0; i < numHands; i++) {
@@ -245,12 +253,12 @@ public class Deck {
 	 * @param args: Card[] deck - deck to be sorted
 	 * @return: none
 	 */
-	public void mergeSort (Card[] deck) {
+	public void mergeSort () {
 		
 		int n = deck.length;
 		temp = new Card[n];
 		recurse(deck , 0, n - 1);
-		this.deck = deck;
+	
 	}
 	
 	/*
@@ -326,6 +334,32 @@ public class Deck {
 		
 		this.deck = deck;
 		
+	}
+	
+	public static PrintWriter makeWriter(String f) {
+		
+		File file = new File(f);
+		PrintWriter out = null;
+		
+		try {
+			out = new PrintWriter(file);
+		} catch (FileNotFoundException ex ) {
+			System.out.println("Cant open file " + f);
+			return null;
+		}
+		
+		return out;
+	}
+	
+	public static void writeJava(Scanner input, PrintWriter output) {
+		
+		while (input.hasNextLine()) {
+			String word = input.nextLine();
+			
+			if (word.length() >= 1 && word.length() <=16) {
+			output.println("\t\"" + word + "\",");
+			}
+		}
 	}
 	
 		

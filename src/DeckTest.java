@@ -15,7 +15,7 @@ public class DeckTest {
 		
 
 		Deck shuffled = new Deck(false);
-		Deck deck = new Deck(true);
+		Deck deck = new Deck();
 		Deck testDeck = new Deck();
 		
 		System.out.println("Default \n" + deck);
@@ -34,13 +34,13 @@ public class DeckTest {
 		for (int i = 0; i < hands2.length; i++)
 			System.out.println("Hand " + i + "\n" + hands2[i] + "\n"); */
 		
-		deck.shuffle(deck.getDeck());
+		deck.shuffle();
 		System.out.println("Shuffled \n" + deck + "\n");
 		deck.selectionSort();
 		System.out.println("SelectionSort \n" + deck + "\n");
-		deck.shuffle(deck.getDeck());
+		deck.shuffle();
 		System.out.println("Shuffled \n" + deck + "\n");
-		deck.mergeSort(deck.getDeck());
+		deck.mergeSort();
 		System.out.println("MergeSort \n" + deck + "\n");
 		
 
