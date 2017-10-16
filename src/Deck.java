@@ -11,7 +11,7 @@ public class Deck {
 	private final int numRanks = 13;
 	private final int numSuits = 4;
 	private  Card[] deck = new Card[deckSize];
-	private int topCard = deck.length - 1;
+	private int topCard;
 	
 	private Card[] temp = new Card[deckSize];
 	
@@ -35,26 +35,23 @@ public class Deck {
 			}
 		}
 		
+		topCard = deck.length - 1;
+		
 	}
 	
 	/**
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: Deck (extra Constructor)
+	 * @method: Deck (extra Constructor)
 	 * 		-used to create sorted or shuffled deck
 	 * @param args: boolean isSorted - tells if user wants deck to be sorted ro not
 	 * @return: new sorted/shuffled Deck
 	 */
 	public Deck (boolean isSorted) {
 		
-		int a = 0;
-		for (int i = 1; i < (numSuits + 1); i++) {
-			for (int j = 0; j < numRanks; j++) {
-				deck[a] = new Card(j, i);
-				a++;
-			}
-		}
+		this = new Deck();
+		topCard = deck.length - 1;
 		
 		if (isSorted == false) {
 			this.shuffle();
@@ -67,7 +64,7 @@ public class Deck {
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: Deck (extra Constructor)
+	 * @method: Deck (extra Constructor)
 	 * 		-used to create hand of cards
 	 * @param args: Card[] hands -array of cards
 	 * @return: new small Deck, part of bigger deck
@@ -75,7 +72,7 @@ public class Deck {
 	public Deck (Card[] hands) {
 		
 		deck = hands;
-		
+		topCard = hands.length - 1;
 	}
 	
 	/**
@@ -83,7 +80,7 @@ public class Deck {
 	 * 
 	 * @user: willolson27
 	 * @date: October 4, 2017
-	 * @ method: shuffle
+	 * @method: shuffle
 	 * 		-used shuffle a deck
 	 * @param args: Card[] Deck - a Deck of Cards
 	 * @return: none
@@ -92,14 +89,36 @@ public class Deck {
 		
 		Random rand = new Random();
 		
-		for (int i = 0 ; i< deck.length; i++) {
-		    int randPos = rand.nextInt(deck.length);
-		    Card temp = deck[i];
-		    deck[i] = deck[randPos];
-		    deck[randPos] = temp;
+		for (int i = 0; i < deck.length; i++) {
+			for (int j = 0 ; j< deck.length; j++) {
+				int randPos = rand.nextInt(deck.length);
+				Card temp = deck[j];
+				deck[j] = deck[randPos];
+				deck[randPos] = temp;
+			}
 		}
 		
-	//	this.deck = deck;
+		for (int k = 0; k < deck.length; k++) {
+			if (deck[k] == null)
+				downShift(k);
+		}
+		
+	
+	}
+	
+	public void downShift (int pos) {
+		
+		for (int i = pos; i < deck.length; i++) {
+			if (i < deck.length - 1)
+				deck[i] = deck[i + 1];
+			else{
+				deck[i] = null;
+				topCard = i - 1;
+				break;
+				}
+			}
+
+		
 	}
 	
 	/**
@@ -116,7 +135,7 @@ public class Deck {
 		
 		String toOutput = "";
 		for (int i = 0 ; i < deck.length; i++) {
-			if (deck.length == deckSize){
+			if (deck.length == deckSize && deck[i] != null){
 				if (deck[i].getSuit() == "diamonds" && (deck[i].getRank() != 6 && deck[i].getRank() != 10 &&  deck[i].getRank() !=1 &&  deck[i].getRank() !=2)) {
 					toOutput+= (deck[i].toString() +"\t");
 					if ((i + 1) % 4 == 0)
@@ -128,7 +147,7 @@ public class Deck {
 						toOutput += "\n";
 				}
 			}
-			else
+			else if (deck[i] != null)
 				toOutput += (deck[i].toString() +"\n");
 		}
 		return toOutput;
@@ -149,6 +168,9 @@ public class Deck {
 		Random rand = new Random();
 		int randPos = rand.nextInt(deck.length);
 		Card randCard = deck[randPos];
+		downShift(randPos);
+		
+		
 		return randCard;
 		
 	}
@@ -162,7 +184,7 @@ public class Deck {
 	 * 		-returns the deck field
 	 * @param args: none
 	 * @return: a deck of cards
-	 */
+	 */    
 	public Card[] getDeck() {
 		
 		return deck;
@@ -180,11 +202,14 @@ public class Deck {
 	 */
 	public boolean equals (Deck otherD) {
 		
-		Card[] deck = otherD.getDeck();
-		if (this.deck.length != deck.length)
+		Deck temp = this;
+		Deck tempB = otherD;
+		temp.selectionSort();
+		tempB.selectionSort();
+		if (temp.getDeck().length != temp.getDeck().length)
 			return false;
-		for (int i = 0; i < deck.length; i++) {
-			if (this.deck[i].equals(deck[i]) == false)
+		for (int i = 0; i < temp.getDeck().length; i++) {
+			if (temp.getDeck()[i].equals(tempB.getDeck()[i]) == false)
 				return false;
 		}
 		return true;
@@ -236,10 +261,10 @@ public class Deck {
 		
 		CardComparator comp = new CardComparator();
 		
-		for (int i = deck.length; i > 1; i--) {
+		for (int i = topCard + 1; i > 1; i--) {
 			int iMax = 0;
 			for (int j = 1; j < i; j++) {
-				if (comp.compare(deck[j], deck[iMax]) == 1)
+				if (deck[j].compareTo(deck[iMax]) == 1)
 					iMax = j;
 			}
 			
@@ -262,7 +287,7 @@ public class Deck {
 	 */
 	public void mergeSort () {
 		
-		int n = deck.length;
+		int n = topCard + 1;
 		temp = new Card[n];
 		recurse(deck , 0, n - 1);
 	

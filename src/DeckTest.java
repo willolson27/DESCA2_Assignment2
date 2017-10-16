@@ -20,16 +20,17 @@ public class DeckTest {
 		
 		System.out.println("Default \n" + deck);
 		System.out.println(deck.pick() + "\n");
+		System.out.println("PIcked \n" + deck);
 		System.out.println("Shuffled \n" + shuffled);
 		
 		System.out.println(deck.equals(testDeck) + "\n");
-		System.out.println(deck.equals(shuffled) + "\n");
+		System.out.println(testDeck.equals(shuffled) + "\n");
 		
 		Deck[] hands = deck.deal(4,13);
-		
+	/*	
 		for (int i = 0; i < hands.length; i++)
 			System.out.println("Hand " + (i + 1) + "\n" + hands[i]);
-
+*/
 	
 		deck.shuffle();
 		System.out.println("Shuffled \n" + deck + "\n");
