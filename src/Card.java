@@ -5,14 +5,14 @@ public class Card implements Comparable {
 	private String suit;
 
 	
-	private final String ACE = "Ace";
-	private final String JACK = "Jack";
-	private final String QUEEN = "Queen";
-	private final String KING = "King";
-	private final String CLUBS = "Clubs";
-	private final String DIAMONDS = "Diamonds";
-	private final String HEARTS = "Hearts";
-	private final String SPADES = "Spades";
+	private final String ACE = "ace";
+	private final String JACK = "jack";
+	private final String QUEEN = "queen";
+	private final String KING = "king";
+	private final String CLUBS = "clubs";
+	private final String DIAMONDS = "diamonds";
+	private final String HEARTS = "hearts";
+	private final String SPADES = "spades";
 	
 	/**
 	 * 
@@ -96,6 +96,19 @@ public class Card implements Comparable {
 		suit = suitConv(s);
 		
 
+	}
+	
+	/**
+	 * 
+	 * @user: willolson27
+	 * @date: October 16, 2017
+	 * @method: capitalize
+	 * 		-capitalizes first letter of a string
+	 * @param a
+	 * @return capitalized string
+	 */
+	String capitalize (String a) {
+		return a.substring(0, 1).toUpperCase() + a.substring(1).toLowerCase();
 	}
 	
 	/**
@@ -224,7 +237,7 @@ public class Card implements Comparable {
 	 */
 	public int getSuitInt() {
 		
-		switch(suit) {
+		switch(suit.toLowerCase()) {
 		case CLUBS:
 			return 0;
 		case DIAMONDS:
@@ -251,7 +264,7 @@ public class Card implements Comparable {
 	
 	public  String toString() {
 		
-		return (getRankStr() + " of " + getSuit());
+		return (capitalize(getRankStr()) + " of " + capitalize(getSuit()));
 		
 	}
 	

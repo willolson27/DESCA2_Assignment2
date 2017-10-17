@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class Deck {
 
-	private final int deckSize = 52;
-	private final int numRanks = 13;
-	private final int numSuits = 4;
-	private  Card[] deck = new Card[deckSize];
+	private final int DECKSIZE = 52;
+	private final int NUMRANKS = 13;
+	private final int NUMSUITS = 4;
+	private  Card[] deck = new Card[DECKSIZE];
 	private int topCard;
 	
-	private Card[] temp = new Card[deckSize];
+	private Card[] temp = new Card[DECKSIZE];
 	
 	/**
 	 * 
@@ -28,8 +28,8 @@ public class Deck {
 	public Deck () {
 		
 		int a = 0;
-		for (int i = 1; i < (numRanks + 1); i++) {
-			for (int j = 0; j < numSuits; j++) {
+		for (int j = 0; j < NUMSUITS; j++) {
+			for (int i = 1; i < (NUMRANKS + 1); i++) {
 				deck[a] = new Card(j, i);
 				a++;
 			}
@@ -50,7 +50,13 @@ public class Deck {
 	 */
 	public Deck (boolean isSorted) {
 		
-		this = new Deck();
+		int a = 0;
+		for (int i = 1; i < (NUMRANKS + 1); i++) {
+			for (int j = 0; j < NUMSUITS; j++) {
+				deck[a] = new Card(j, i);
+				a++;
+			}
+		}
 		topCard = deck.length - 1;
 		
 		if (isSorted == false) {
@@ -106,6 +112,11 @@ public class Deck {
 	
 	}
 	
+	/**
+	 * @user willolson27
+	 * @method downShift
+	 * @param pos
+	 */
 	public void downShift (int pos) {
 		
 		for (int i = pos; i < deck.length; i++) {
@@ -135,7 +146,7 @@ public class Deck {
 		
 		String toOutput = "";
 		for (int i = 0 ; i < deck.length; i++) {
-			if (deck.length == deckSize && deck[i] != null){
+			if (deck.length == DECKSIZE && deck[i] != null){
 				if (deck[i].getSuit() == "diamonds" && (deck[i].getRank() != 6 && deck[i].getRank() != 10 &&  deck[i].getRank() !=1 &&  deck[i].getRank() !=2)) {
 					toOutput+= (deck[i].toString() +"\t");
 					if ((i + 1) % 4 == 0)
@@ -226,25 +237,29 @@ public class Deck {
 	 */
 	public Deck[] deal (int numHands, int numCards) {
 		
+		Deck[]hands = new Deck[numHands];
+		Card[][] tempDecks = new Card[numHands][numCards];
 		
-		Deck[] hands = new Deck[numHands];
-		this.shuffle();
-		if (deckSize - (numHands * numCards) >= 0) {
-			int a = 0;
-			for (int i = 0; i < numHands; i++) {
-				Card[] tempDeck = new Card[numCards];
-				for (int j = 0; j < numCards; j++) {
-					tempDeck[j] = this.deck[a];
+		Deck temp = this;
+		temp.shuffle();
+		int a = 0;
+		if (DECKSIZE - (numHands * numCards) >= 0) {
+			for (int i = 0; i < numCards; i++) {
+				for (int j = 0; j < numHands; j++) {
+					tempDecks[j][i] = temp.deck[a];
 					a++;
 				}
-				hands[i] = new Deck(tempDeck);
-	
 			}
-			return hands;
 		}
 		else
 			return null;
 		
+		for (int k = 0; k < numHands; k++) {
+			hands[k] = new Deck (tempDecks[k]);
+		}
+		
+		return hands;
+
 	}
 	
 	/**
@@ -259,7 +274,7 @@ public class Deck {
 	 */
 	public void selectionSort() {
 		
-		CardComparator comp = new CardComparator();
+		
 		
 		for (int i = topCard + 1; i > 1; i--) {
 			int iMax = 0;
@@ -350,12 +365,12 @@ public class Deck {
 			}
 			k++;		
 		}
-		while (i <= middle && k != deckSize) {
+		while (i <= middle && k != DECKSIZE) {
 			temp[k] = deck[i];
 			i++;
 			k++;
 		}
-		while (j <= to && k != deckSize) {
+		while (j <= to && k != DECKSIZE) {
 			temp[k] = deck[j];
 			j++;
 			k++;
