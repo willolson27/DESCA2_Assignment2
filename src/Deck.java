@@ -1,18 +1,16 @@
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Deck {
 
+	//create constants
 	private final int DECKSIZE = 52;
 	private final int NUMRANKS = 13;
 	private final int NUMSUITS = 4;
+	
+	//create fields
 	private  Card[] deck = new Card[DECKSIZE];
 	private int topCard;
-	
 	private Card[] temp = new Card[DECKSIZE];
 	
 	/**
@@ -27,13 +25,7 @@ public class Deck {
 	
 	public Deck () {
 		
-		int a = 0;
-		for (int j = 0; j < NUMSUITS; j++) {
-			for (int i = 1; i < (NUMRANKS + 1); i++) {
-				deck[a] = new Card(j, i);
-				a++;
-			}
-		}
+		newDeck();
 		
 		topCard = deck.length - 1;
 		
@@ -50,13 +42,7 @@ public class Deck {
 	 */
 	public Deck (boolean isSorted) {
 		
-		int a = 0;
-		for (int i = 1; i < (NUMRANKS + 1); i++) {
-			for (int j = 0; j < NUMSUITS; j++) {
-				deck[a] = new Card(j, i);
-				a++;
-			}
-		}
+		newDeck();
 		topCard = deck.length - 1;
 		
 		if (isSorted == false) {
@@ -81,6 +67,18 @@ public class Deck {
 		topCard = hands.length - 1;
 	}
 	
+	private void newDeck() {
+		
+		int a = 0;
+		for (int j = 0; j < NUMSUITS; j++) {
+			for (int i = 1; i < (NUMRANKS + 1); i++) {
+				deck[a] = new Card(j, i);
+				a++;
+			}
+		}
+		
+	}
+	
 	/**
 	 * 
 	 * 
@@ -95,9 +93,9 @@ public class Deck {
 		
 		Random rand = new Random();
 		
-		for (int i = 0; i < deck.length; i++) {
-			for (int j = 0 ; j< deck.length; j++) {
-				int randPos = rand.nextInt(deck.length);
+		for (int i = 0; i < topCard + 1; i++) {
+			for (int j = 0 ; j < topCard + 1; j++) {
+				int randPos = rand.nextInt(topCard + 1);
 				Card temp = deck[j];
 				deck[j] = deck[randPos];
 				deck[randPos] = temp;
@@ -114,13 +112,15 @@ public class Deck {
 	
 	/**
 	 * @user willolson27
+	 * @date October 16, 2017
 	 * @method downShift
+	 * 		-moves all the values in  the Deck down a slot, starting at param  pos
 	 * @param pos
 	 */
 	public void downShift (int pos) {
 		
 		for (int i = pos; i < deck.length; i++) {
-			if (i < deck.length - 1)
+			if (i < topCard)
 				deck[i] = deck[i + 1];
 			else{
 				deck[i] = null;
@@ -147,13 +147,16 @@ public class Deck {
 		String toOutput = "";
 		for (int i = 0 ; i < deck.length; i++) {
 			if (deck.length == DECKSIZE && deck[i] != null){
+				//fix an indentation error
 				if (deck[i].getSuit() == "diamonds" && (deck[i].getRank() != 6 && deck[i].getRank() != 10 &&  deck[i].getRank() !=1 &&  deck[i].getRank() !=2)) {
 					toOutput+= (deck[i].toString() +"\t");
+					//create a new row
 					if ((i + 1) % 4 == 0)
 						toOutput += "\n";
 				}
 				else {
 				toOutput+= (deck[i].toString() +"\t\t");
+				//create a new row
 					if ((i + 1) % 4 == 0)
 						toOutput += "\n";
 				}
@@ -352,10 +355,10 @@ public class Deck {
 		int j = middle + 1;
 		int k = from;
 		
-		CardComparator comp = new CardComparator();
 		
+		//set first part of temp array
 		while (i <= middle && j <=to) {
-			if (comp.compare(deck[i], deck[j]) == -1) {
+			if (deck[i].compareTo(deck[j]) == -1) {
 				temp[k] = deck[i];
 				i++;
 			}
@@ -365,50 +368,26 @@ public class Deck {
 			}
 			k++;		
 		}
+		//set second part of temp array
 		while (i <= middle && k != DECKSIZE) {
 			temp[k] = deck[i];
 			i++;
 			k++;
 		}
+		
+		//set third part of temp array
 		while (j <= to && k != DECKSIZE) {
 			temp[k] = deck[j];
 			j++;
 			k++;
 		}
 		
+		//merge back into deck
 		for (k = from; k <= to; k++)
 			deck[k] = temp[k];
 		
 		this.deck = deck;
 		
-	}
-	/**
-	 * 
-	 * @user:willolson27
-	 * @date: October 11, 2017
-	 * @method
-	 * 	-creates a PrintWriter to be written to the output file
-	 * @param String f
-	 * @return PrintWriter (used to print to output file)
-	 */
-	public static PrintWriter makeWriter(String f) {
-		
-		File file = new File(f);
-		PrintWriter out = null;
-		
-		try {
-			out = new PrintWriter(file);
-		} catch (FileNotFoundException ex ) {
-			System.out.println("Cant open file " + f);
-			return null;
-		}
-		
-		return out;
-	}
-	
-	public static void writeJava(Scanner input, PrintWriter output) {
-		
-		 
 	}
 	
 		

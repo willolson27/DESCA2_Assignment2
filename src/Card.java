@@ -1,10 +1,11 @@
 
 public class Card implements Comparable {
 
+	//create fields
 	private int rank;
 	private String suit;
 
-	
+	//create constants
 	private final String ACE = "ace";
 	private final String JACK = "jack";
 	private final String QUEEN = "queen";
