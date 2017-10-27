@@ -15,6 +15,7 @@ public class Card implements Comparable {
 	private final String HEARTS = "hearts";
 	private final String SPADES = "spades";
 	
+
 	/**
 	 * 
 	 * @user: willolson27
@@ -265,7 +266,8 @@ public class Card implements Comparable {
 	
 	public  String toString() {
 		
-		return (capitalize(getRankStr()) + " of " + capitalize(getSuit()));
+		String out = capitalize(getRankStr()) + " of " + capitalize(getSuit());
+		return String.format("%-18s", out);
 		
 	}
 	
@@ -280,7 +282,9 @@ public class Card implements Comparable {
 	 */
 	public boolean equals(Card otherCard) {
 		
-		if (this.getRank() == otherCard.getRank() && this.getSuit().equals(otherCard.getSuit()))
+		if (this == null || otherCard == null)
+			return false;
+		else if (this.getRank() == otherCard.getRank() && this.getSuit().equals(otherCard.getSuit()))
 			return true;
 		else
 			return false;

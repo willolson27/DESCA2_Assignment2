@@ -10,8 +10,13 @@ public class Deck {
 	
 	//create fields
 	private  Card[] deck = new Card[DECKSIZE];
-	private int topCard;
+	//deck used for sorts
 	private Card[] temp = new Card[DECKSIZE];
+	
+	//index of top card in deck
+	private int topCard;
+	private boolean sorted;
+	
 	
 	/**
 	 * 
@@ -65,8 +70,18 @@ public class Deck {
 		
 		deck = hands;
 		topCard = hands.length - 1;
+		sorted = false;
 	}
 	
+	/**
+	 * 
+	 * @user willolson27
+	 * @date October 16, 2017
+	 * @method newDeck
+	 * 		-creates a new default Deck, called from the constructors so that code is not repeated
+	 * @return void
+	 * 
+	 */
 	private void newDeck() {
 		
 		int a = 0;
@@ -76,6 +91,7 @@ public class Deck {
 				a++;
 			}
 		}
+		sorted = true;
 		
 	}
 	
@@ -101,12 +117,7 @@ public class Deck {
 				deck[randPos] = temp;
 			}
 		}
-		
-		for (int k = 0; k < deck.length; k++) {
-			if (deck[k] == null)
-				downShift(k);
-		}
-		
+		sorted = false;
 	
 	}
 	
@@ -145,27 +156,47 @@ public class Deck {
 	public  String toString() {
 		
 		String toOutput = "";
-		for (int i = 0 ; i < deck.length; i++) {
-			if (deck.length == DECKSIZE && deck[i] != null){
-				//fix an indentation error
-				if (deck[i].getSuit() == "diamonds" && (deck[i].getRank() != 6 && deck[i].getRank() != 10 &&  deck[i].getRank() !=1 &&  deck[i].getRank() !=2)) {
-					toOutput+= (deck[i].toString() +"\t");
-					//create a new row
-					if ((i + 1) % 4 == 0)
+		if (topCard == -1) 
+			return "*No Cards left in deck*";
+		for (int i = 0 ; i < topCard + 1; i++) {
+			if (topCard + 1 == DECKSIZE && sorted == true){
+				for (int j = 0; j < NUMRANKS; j++) {
+					int l = deck[j].getRank();
+					for (int k = 0; k < NUMSUITS; k++) {
+						
+						toOutput += ( deck[NUMRANKS * k + (l-1)] + "\t");
+					}
+					
 						toOutput += "\n";
 				}
-				else {
-				toOutput+= (deck[i].toString() +"\t\t");
-				//create a new row
-					if ((i + 1) % 4 == 0)
-						toOutput += "\n";
-				}
+				break;
 			}
-			else if (deck[i] != null)
+			else if (topCard + 1 == DECKSIZE) {
+				toOutput += (deck[i].toString() + "\t");
+				//create a new row
+				if ((i + 1) % 4 == 0)
+					toOutput += "\n";
+			}
+			else	
 				toOutput += (deck[i].toString() +"\n");
 		}
 		return toOutput;
 	}
+	/*
+	//fix an indentation error
+	if (deck[i].getSuit() == "diamonds" && (deck[i].getRank() != 6 && deck[i].getRank() != 10 &&  deck[i].getRank() !=1 &&  deck[i].getRank() !=2)) {
+		toOutput+= (deck[i].toString() +"\t");
+		//create a new row
+		if ((i + 1) % 4 == 0)
+			toOutput += "\n";
+	}
+	else {
+	toOutput+= (deck[i].toString() +"\t\t");
+	//create a new row
+		if ((i + 1) % 4 == 0)
+			toOutput += "\n";
+	}
+	*/
 	
 	/**
 	 * 
@@ -180,7 +211,7 @@ public class Deck {
 	public Card pick() {
 		
 		Random rand = new Random();
-		int randPos = rand.nextInt(deck.length);
+		int randPos = rand.nextInt(topCard + 1);
 		Card randCard = deck[randPos];
 		downShift(randPos);
 		
@@ -216,13 +247,13 @@ public class Deck {
 	 */
 	public boolean equals (Deck otherD) {
 		
-		Deck temp = this;
-		Deck tempB = otherD;
+		Deck temp = new Deck(this.deck);
+		Deck tempB = new Deck(otherD.deck);
 		temp.selectionSort();
 		tempB.selectionSort();
-		if (temp.getDeck().length != temp.getDeck().length)
+		if (temp.topCard != tempB.topCard)
 			return false;
-		for (int i = 0; i < temp.getDeck().length; i++) {
+		for (int i = 0; i <= temp.topCard; i++) {
 			if (temp.getDeck()[i].equals(tempB.getDeck()[i]) == false)
 				return false;
 		}
@@ -245,12 +276,15 @@ public class Deck {
 		
 		Deck temp = this;
 		temp.shuffle();
-		int a = 0;
+		int a = topCard;
 		if (DECKSIZE - (numHands * numCards) >= 0) {
 			for (int i = 0; i < numCards; i++) {
 				for (int j = 0; j < numHands; j++) {
-					tempDecks[j][i] = temp.deck[a];
-					a++;
+					if (a >= 0) {
+						tempDecks[j][i] = temp.deck[a];
+						topCard--;
+					}
+					a--;
 				}
 			}
 		}
@@ -282,8 +316,11 @@ public class Deck {
 		for (int i = topCard + 1; i > 1; i--) {
 			int iMax = 0;
 			for (int j = 1; j < i; j++) {
-				if (deck[j].compareTo(deck[iMax]) == 1)
-					iMax = j;
+				if (deck[j] != null) {
+					if (deck[j].compareTo(deck[iMax]) == 1)
+						iMax = j;
+				}
+	
 			}
 			
 			Card temp = deck[iMax];
@@ -291,6 +328,9 @@ public class Deck {
 			deck[i - 1] = temp;
 			
 		}
+		
+		sorted = true;
+		
 	}
 	
 	/**
@@ -308,7 +348,7 @@ public class Deck {
 		int n = topCard + 1;
 		temp = new Card[n];
 		recurse(deck , 0, n - 1);
-	
+		sorted = true;
 	}
 	
 	/**

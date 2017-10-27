@@ -65,7 +65,7 @@ public class DeckTest {
 		
 		//local variables 
 		String pb = "**************************";
-		String[] toOutput = new String[19];
+		String[] toOutput = new String[21];
 		PrintWriter output = makeWriter("output.txt");
 		
 		//decks for testing
@@ -98,18 +98,23 @@ public class DeckTest {
 		toOutput[9] = ("\n" + pb + "Deck B with removed card, shuffled" + pb + "\n" + deckB + "\n\n" + picked + "\n");
 		deckB.mergeSort();
 		toOutput[10] = ("\n" + pb + "Deck B with removed card, merge sorted" + pb + "\n" + deckB + "\n\n" + picked + "\n");
-		Card picked2 = deckB.pick();
-		toOutput[11] = ("\n" + pb + "Deck B with two removed cards, merge sorted" + pb + "\n" + deckB + "\n\n" + picked + "\n" + picked2 + "\n");
+		String pck = "";
+		for (int i = 0 ; i < 51; i++)
+			pck += (deckB.pick()).toString() + "\n";
+		deckB.shuffle();
+		toOutput[11] = ("\n" + pb + "Deck B with many removed cards, shuffled" + pb + "\n" + deckB + "\n\n" + picked + "\n" + pck + "\n");
+		deckB.mergeSort();
+		toOutput[12] = ("\n" + pb + "Deck B with many removed cards, merge sorted" + pb + "\n" + deckB + "\n\n" + picked + "\n" + pck + "\n");
 
 		//DECK C - start as shuffled, merge sort
-		toOutput[12] = ("\n" + pb + "Deck C" + pb + "\n" + deckC + "\n");
+		toOutput[13] = ("\n" + pb + "Deck C" + pb + "\n" + deckC + "\n");
 		deckC.mergeSort();
-		toOutput[13] = ("\n" + pb + "Deck C, merge sorted" + pb + "\n" + deckC + "\n");
+		toOutput[14] = ("\n" + pb + "Deck C, merge sorted" + pb + "\n" + deckC + "\n");
 		
 		//EQUALS TEST
 		String a = ("\n" + pb + "Equals Test" + pb);
-		toOutput[14] = (a + "\n" + "Does deck C equal deck A?\t" + deckC.equals(deckA) + "\n");
-		toOutput[15] = ("\n" + "Does deck C equal deck B?\t" + deckC.equals(deckB) + "\n");
+		toOutput[15] = (a + "\n" + "Does deck C equal deck A?\t" + deckC.equals(deckA) + "\n");
+		toOutput[16] = ("\n" + "Does deck C equal deck B?\t" + deckC.equals(deckB) + "\n");
 
 		//Deal hands - print of dealt hands
 		Deck[] hands = deckA.deal(4, 13);
@@ -117,13 +122,14 @@ public class DeckTest {
 		for (int i = 0; i < hands.length; i++) {
 			b += ("\nHand " + (i+1) + "\n\n"  + hands[i]);
 		}
-		toOutput[16] = ("\n" + pb + "Dealt Hands" + pb + b);
+		toOutput[17] = ("\n" + pb + "Dealt Hands" + pb + b);
 		
 		
 		hands[0].selectionSort();
-		toOutput[17] = ("\nHand 1, sorted" + "\n\n"  + hands[0]);
+		toOutput[18] = ("\nHand 1, sorted" + "\n\n"  + hands[0]);
 		hands[0].shuffle();
-		toOutput[18] = ("\nHand 1, reshuffled" + "\n\n"  + hands[0]);
+		toOutput[19] = ("\nHand 1, reshuffled" + "\n\n"  + hands[0]);
+		toOutput[20] = "\n" + pb + "Deck A after dealt" + pb + "\n" + deckA;
 		
 		writeJava(toOutput, output);
 
