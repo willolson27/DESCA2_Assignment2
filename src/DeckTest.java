@@ -99,7 +99,7 @@ public class DeckTest {
 		deckB.mergeSort();
 		toOutput[10] = ("\n" + pb + "Deck B with removed card, merge sorted" + pb + "\n" + deckB + "\n\n" + picked + "\n");
 		String pck = "";
-		for (int i = 0 ; i < 51; i++)
+		for (int i = 0 ; i < 45; i++)
 			pck += (deckB.pick()).toString() + "\n";
 		deckB.shuffle();
 		toOutput[11] = ("\n" + pb + "Deck B with many removed cards, shuffled" + pb + "\n" + deckB + "\n\n" + picked + "\n" + pck + "\n");
